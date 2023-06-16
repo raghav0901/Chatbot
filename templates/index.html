@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>SEB Information kiosk</title>
+
+</head>
+<body>
+    <a href="http://localhost:5000/" target="_blank">
+        <img src="https://www.seb-inc.com/Portals/61/SEB-with-wording-Roboto-v4-bold.png?ver=2020-05-05-153836-433" style="width:200px;text-align: center;display: block;margin-right: auto;margin-left: auto;">
+    </a>
+        
+    <h1 style="text-align: center;">SEB Information kiosk</h1>
+    <form action="/answer" method="post">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <p>Select a model:</p>
+                <select id="model_input" name="model_input">
+                    <option value="text-davinci-003">text-davinci-003</option>
+                    <option value="text-davinci-002">text-davinci-002</option>
+                    <!--
+                    code-cushman-002
+                    <option value="text-curie-001">text-curie-001</option>
+                    <option value="text-babbage-001">text-babbage-001</option>
+                    <option value="text-davinci-002">text-ada-001</option>
+                    -->
+                </select>
+            </div>
+        
+            <div>
+                <p>Select character case:</p>
+                <select id="ignore_input" name="ignore_input">
+                    <option value=" Ignore Character Case">Ignore Character case</option>
+                    <option value=" " selected>Dont Ignore Character case</option>
+                </select>
+            </div>
+        </div>
+        <hr>
+        
+        
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+
+        {% endif %}
+        {% endwith %}
+        <!-- <h1>Query Results</h1> -->
+        <h3 style="color: red;">Question : <i>{{ question }}</i> ? </h3>
+        <h3 style="color: purple;"><i>SQL statment :{{Response}}</i></h3>
+        <h3 style="color: orange;">Contains :<i> {{r}} </i> records</h3>
+
+        <!-- <h4>Add: <i>"ignore chracter case"</i> to question if you want</h4> -->
+        <a href="http://localhost:5000/download" class="download-button" download>Download</a>
+        
+        {% if results %}
+        <table>
+            <thead>
+                <tr>
+                    {% for header in headers %}
+                    <th>{{ header }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in results %}
+                <tr>
+                    {% for value in row %}
+                    <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% endif %}
+        
+
+        <br>
+        <textarea name="name_input" cols="50" rows="5"></textarea>
+        <br>
+        <input type="submit" value="Submit" id="greet">
+    </form>
+    
+</body>
+</html>
