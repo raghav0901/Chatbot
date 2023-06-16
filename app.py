@@ -16,7 +16,6 @@ from sqlalchemy import create_engine, text
 # Set the OpenAI API key
 os.environ["OPENAI_API_KEY"] = "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"
 import openai
-from flask_ngrok import run_with_ngrok
 
 # Load the CSV file into a Pandas DataFrame
 df = pd.read_excel("employee1.xlsx")
@@ -118,7 +117,6 @@ def sql_(df,pf, sql_statement):
 
 app = Flask(__name__)
 app.secret_key = "my_secret_key"
-run_with_ngrok(app)
 
 @app.route("/")
 def index():
@@ -220,5 +218,5 @@ def download():
 
 
 if __name__ == "__main__":
-    #app.debug = True
+    app.debug = True
     app.run()
